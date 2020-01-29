@@ -1,38 +1,38 @@
 <?php 
  
-$login = $_POST['login'];
-$senha = MD5($_POST['senha']);
-$connect = mysqli_connect('nome_do_servidor','nome_de_usuario','senha');
-$db = mysqli::select_db('nome_do_banco_de_dados');
-$query_select = "SELECT login FROM usuarios WHERE login = '$login'";
+$email = $_POST['email'];
+$password = MD5($_POST['password']);
+$connect = mysqli_connect('server','email','password');
+$db = mysqli::select_db('database');
+$query_select = "SELECT email FROM usuarios WHERE email = '$email'";
 $select = mysqli_query($query_select,$connect);
 $array = mysqli_fetch_array($select);
-$logarray = $array['login'];
+$logarray = $array['email'];
  
-  if($login == "" || $login == null){
+  if($email == "" || $email == null){
     echo"<script language='javascript' type='text/javascript'>
-    alert('O campo login deve ser preenchido');window.location.href='
+    alert('Email field is must be filled');window.location.href='
     cadastro.html';</script>";
  
     }else{
-      if($logarray == $login){
+      if($logarray == $email){
  
         echo"<script language='javascript' type='text/javascript'>
-        alert('Esse login já existe');window.location.href='
+        alert('This email already exists!');window.location.href='
         cadastro.html';</script>";
         die();
  
       }else{
-        $query = "INSERT INTO usuarios (login,senha) VALUES ('$login','$senha')";
+        $query = "INSERT INTO users (email,password) VALUES ('$email','$password')";
         $insert = mysqli_query($query,$connect);
          
         if($insert){
           echo"<script language='javascript' type='text/javascript'>
-          alert('Usuário cadastrado com sucesso!');window.location.
-          href='login.html'</script>";
+          alert('Sign up completed successfully!');window.location.
+          href='email.html'</script>";
         }else{
           echo"<script language='javascript' type='text/javascript'>
-          alert('Não foi possível cadastrar esse usuário');window.location
+          alert('unable to register this user!');window.location
           .href='cadastro.html'</script>";
         }
       }
